@@ -173,23 +173,23 @@ def recomendacion(titulo:str):
     '''
     Ingresas un nombre de pelicula y te recomienda las similares en una lista
     '''
-    # Obtener el índice de la película buscada
+    # Obtengo el índice de la película buscada
     idx = df[df['title'] == titulo].index[0]
 
-    # Obtener el cluster asignado a la película buscada
-    cluster = df[['cluster_label']]
+    # Obtengo el cluster asignado a la película buscada
+    cluster_label = df.loc[idx, 'cluster_label']
 
-    # Filtrar las películas que pertenecen al mismo cluster
-    cluster_movies = df[labels == cluster]
+    # Filtro las películas que pertenecen al mismo cluster
+    cluster_movies = df[df['cluster_label'] == cluster_label]
 
-    # Excluir la película de referencia de la lista
+    # Saco la película de referencia de la lista
     cluster_movies = cluster_movies[cluster_movies['title'] != titulo]
 
-    # Ordenar las películas del cluster por popularidad de forma descendente
+    # Ordeno las películas del cluster por popularidad de forma descendente
     cluster_movies = cluster_movies.sort_values(by='popularity', ascending=False)
 
-    # Obtener los títulos de las películas más populares dentro del cluster (excluyendo la película de referencia)
+    # Obtengo los títulos de las películas más populares dentro del cluster (excluyendo la película de referencia)
     recommended_movies = cluster_movies['title'].tolist()[:5]
 
-    # Retornar la lista de los 5 títulos más populares dentro del cluster (excluyendo la película de referencia)
+    # Retorna la lista de los 5 títulos más populares dentro del cluster (excluyendo la película de referencia)
     return recommended_movies
