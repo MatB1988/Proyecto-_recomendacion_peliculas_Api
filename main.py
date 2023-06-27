@@ -2,37 +2,26 @@
 from fastapi import FastAPI
 import numpy as np
 import pandas as pd
+import fastparquet
 import json
 
-
-# Cargo df a utilizar en las funciones
-'''
-# Cargo df_mes
-df_mes = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_mes')
-# Cargo el df que tiene el día
-df_day = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_dia')
-# Cargo df_movies_titulo
-df_movies_titulo = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_movies_titulo')
-# Cargo df para la funcion scort
-df_movies_scort = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_movies_scort')
-# Cargo df_movies_final
-df_movies_final = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_movies_titulo')
-# Cargo df_recomendaciones
-df_recomendacion = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_recomendacion')
-''' 
 app = FastAPI()
 
 # Cargo df a utilizar en las funciones
-df = pd.read_parquet('Dataset\df_final_con_modelo')
+@app.get("/dataframe")
+def get_dataframe():
+    # Lee el archivo Parquet desde el repositorio y crea el DataFrame
+    df = fastparquet.ParquetFile("https://github.com/MatB1988/Proyecto-_recomendacion_peliculas_Api/blob/9dd2eacbf540d8b18432cb6b506acbd5ff62be49/Dataset/df_final_con_modelo").to_pandas()
 
-# Defino df global a utilizar 
-def selecciono_df_mes(dataframe):
-    global df
+    # Realiza las operaciones o consultas necesarias con el DataFrame
+    # ...
+
+    # Devuelve el DataFrame como respuesta de la solicitud
+    return df.to_dict(orient="records")
 
 @app.get('/cantidad_filmaciones_mes/{mes}')
 def cantidad_filmaciones_mes(mes: str):
-    global df  # Configuro el dataset a utilizar 
-    
+       
     '''
     Se ingresa el mes en español y la función retorna la cantidad de películas que se 
     estrenaron ese mes históricamente
@@ -50,7 +39,7 @@ def cantidad_filmaciones_mes(mes: str):
     
 @app.get('/cantidad_filmaciones_dia{dia}')
 def cantidad_filmaciones_dia(dia: str):
-    global df # Configuro el dataset a utilizar
+    
     '''
     Se ingresa el dia y la funcion retorna la cantidad de peliculas que se 
     estrenaron ese dia historicamente
@@ -75,8 +64,7 @@ def cantidad_filmaciones_dia(dia: str):
 
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
-    global df #Configuro df a utlizar 
-    
+        
     '''
     Se ingresa el título de una filmación esperando como respuesta el título, la cantidad de votos y el valor 
     promedio de las votaciones. 
@@ -103,7 +91,7 @@ def votos_titulo(titulo:str):
 
 @app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor:str):
-    global df #Configuro df a utlizar 
+    
     
     '''
     Se ingresa el nombre de un actor que se encuentre dentro de un dataset debiendo devolver 
@@ -141,7 +129,7 @@ def get_actor(nombre_actor:str):
 
 @app.get('/get_director/{nombre_director}')
 def get_director(nombre_director:str):
-    global df #Configuro df a utlizar 
+    
     
     ''' 
     Se ingresa el nombre de un director que se encuentre dentro de un dataset debiendo devolver el éxito del 
@@ -180,7 +168,7 @@ def get_director(nombre_director:str):
 # ML
 @app.get('/recomendacion/{titulo}')
 def recomendacion(titulo:str):
-    global df #Configuro df a utlizar 
+    
     
     '''
     Ingresas un nombre de pelicula y te recomienda las similares en una lista
