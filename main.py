@@ -1,0 +1,216 @@
+# Librerias 
+
+import numpy as np
+import pandas as pd
+import json
+
+
+# Cargo df a utilizar en las funciones
+'''
+# Cargo df_mes
+df_mes = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_mes')
+# Cargo el df que tiene el día
+df_day = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_dia')
+# Cargo df_movies_titulo
+df_movies_titulo = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_movies_titulo')
+# Cargo df para la funcion scort
+df_movies_scort = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_movies_scort')
+# Cargo df_movies_final
+df_movies_final = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_movies_titulo')
+# Cargo df_recomendaciones
+df_recomendacion = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_recomendacion')
+''' 
+# Cargo df a utilizar en las funciones
+df = pd.read_parquet('Dataset\df_final_con_modelo')
+
+# Defino df global a utilizar 
+def selecciono_df_mes(dataframe):
+    global df
+
+#@app.get('/cantidad_filmaciones_mes/{mes}')
+def cantidad_filmaciones_mes(mes: str):
+    global df  # Configuro el dataset a utilizar 
+    
+    '''
+    Se ingresa el mes en español y la función retorna la cantidad de películas que se 
+    estrenaron ese mes históricamente
+    '''
+    
+    # Convierto el mes consultado a minúsculas y en español, y aplica capitalize que nos devuelve la primer letra en mayúscula, el resto de la palabra en minúscula como la tenemos en el df.
+    mes = mes.lower().capitalize()
+    
+    # Filtro por el día de lanzamiento en el dataset
+    df1 = df[df['release_month'] == mes]
+
+    # Obtengo la cantidad de películas para ese día
+    respuesta = len(df1)
+    return {'dia': mes, 'cantidad': respuesta}
+
+# Uso funcion mes 
+selecciono_df_mes(df)
+mes_input = input("Ingrese el mes en español: ")
+resultado = cantidad_filmaciones_mes(mes_input)
+print(resultado)
+    
+#@app.get('/cantidad_filmaciones_dia{dia}')
+def cantidad_filmaciones_dia(dia: str):
+    global df # Configuro el dataset a utilizar
+    '''
+    Se ingresa el dia y la funcion retorna la cantidad de peliculas que se 
+    estrenaron ese dia historicamente
+    '''
+    # Converto el día consultado a minúsculas y en español, y aplicar capitalize para obtener la primera letra en mayúscula
+    dia = dia.lower().capitalize()
+    
+    # Asigno un valor predeterminado a df_day
+    df_day = None
+    
+    # Filtro por día en el dataset
+    if dia in df['release_day'].unique():
+        df_day = df[df['release_day'] == dia]
+
+    # Verific0 si se encontraron datos para el día consultado
+    if df_day is not None:
+        # Obtengo la cantidad de películas para ese día
+        respuesta = len(df_day)
+        return {'dia': dia, 'cantidad': respuesta}
+    else:
+        return {'dia': dia, 'cantidad': 0}
+
+dia_input = input("Ingrese el día en español: ")
+resultado = cantidad_filmaciones_dia(dia_input)
+print(resultado)
+
+
+#@app.get('/votos_titulo/{titulo}')
+def votos_titulo(titulo:str):
+    global df #Configuro df a utlizar 
+    
+    '''
+    Se ingresa el título de una filmación esperando como respuesta el título, la cantidad de votos y el valor 
+    promedio de las votaciones. 
+    La misma variable deberá de contar con al menos 2000 valoraciones, 
+    caso contrario, debemos contar con un mensaje avisando que no cumple esta condición y que por ende, no se devuelve ningun valor.
+    '''
+    filtro = input("Ingrese el titulo de la pelicula que quiere saber los votos: ")
+    df_filtro = df[df['title'] == filtro]  
+    
+    if len(df_filtro) == 0:
+        print('No se encontró la pelicula con el título')
+        return
+    
+    votos = df_filtro['vote_count'].values[0]
+    promedio = df_filtro['vote_average'].values[0]
+    
+    if votos < 2000:
+        print('La pelicula no cumple con la condicion de tener al menos 2000 valoraciones.')
+        return
+    
+    ano_estreno = df_filtro['release_year'].values[0]    
+    
+    return {'titulo':filtro, 'anio':ano_estreno, 'voto_total': votos, 'voto_promedio': promedio}
+
+#@app.get('/get_actor/{nombre_actor}')
+def get_actor(nombre_actor:str):
+    global df #Configuro df a utlizar 
+    
+    '''
+    Se ingresa el nombre de un actor que se encuentre dentro de un dataset debiendo devolver 
+    el éxito del mismo medido a través del retorno. 
+    Además, la cantidad de películas que en las que ha participado y el promedio de retorno
+    '''
+    # Solicito el nombre del actor por teclado
+    nombre_actor = input("Ingrese el nombre del actor: ").lower()
+
+    # Filtro el DataFrame por el nombre del actor en minúsculas
+    actor_films = df[df['actores'].apply(lambda actores: nombre_actor in [a.lower() for a in actores])]
+
+    # Calculo la cantidad de películas en las que ha participado el actor
+    cantidad_peliculas = len(actor_films)
+
+    # Calculo el retorno total del actor sumando los retornos de todas las películas
+    retorno_total = actor_films['return'].sum()
+
+    # Calculo el promedio de retorno por película
+    promedio_retorno = retorno_total / cantidad_peliculas
+
+    # Creo el diccionario de resultados
+    resultados = {
+        "exito_actor": f"El actor {nombre_actor} ha participado de {cantidad_peliculas} cantidad de filmaciones, el mismo ha conseguido un retorno de {retorno_total} con un promedio de {promedio_retorno} por filmación",
+        "cantidad_peliculas": cantidad_peliculas,
+        "promedio_retorno": promedio_retorno
+    }
+
+    # Converto los resultados a formato JSON
+    json_resultado = json.dumps(resultados)
+    
+    
+    return json_resultado
+
+
+#@app.get('/get_director/{nombre_director}')
+def get_director(nombre_director:str):
+    global df #Configuro df a utlizar 
+    
+    ''' 
+    Se ingresa el nombre de un director que se encuentre dentro de un dataset debiendo devolver el éxito del 
+    mismo medido a través del retorno. 
+    Además, deberá devolver el nombre de cada película con la fecha de lanzamiento, retorno individual, costo y ganancia de la misma.
+    '''
+    # Filtroel DataFrame por el nombre del director
+    director_films = df[df['director'] == nombre_director]
+
+    # Calculo el éxito del director como el promedio de retorno de todas las películas dirigidas por él
+    promedio_retorno = director_films['return'].mean()
+
+    # Creo la lista de películas dirigidas por el director con su información correspondiente
+    peliculas = []
+    for index, row in director_films.iterrows():
+        pelicula = {
+            "nombre": row['original_title'],
+            "fecha_lanzamiento": str(row['release_date']),
+            "retorno": row['return'],
+            "costo": row['budget'],
+            "ganancia": row['revenue']
+        }
+        peliculas.append(pelicula)
+
+    # Cre0 el diccionario de resultados
+    resultados2 = {
+        "exito_director": f"El director {nombre_director} ha tenido éxito con un promedio de retorno de {promedio_retorno}",
+        "peliculas": peliculas
+    }
+
+    # Converto los resultados a formato JSON
+    json_resultado2 = json.dumps(resultados2)
+
+    return json_resultado2     
+    
+# ML
+#@app.get('/recomendacion/{titulo}')
+def recomendacion(titulo:str):
+    global df #Configuro df a utlizar 
+    
+    '''
+    Ingresas un nombre de pelicula y te recomienda las similares en una lista
+    '''
+    # Obtener el índice de la película buscada
+    idx = df[df['title'] == titulo].index[0]
+
+    # Obtener el cluster asignado a la película buscada
+    cluster = df[['cluster_label']]
+
+    # Filtrar las películas que pertenecen al mismo cluster
+    cluster_movies = df[labels == cluster]
+
+    # Excluir la película de referencia de la lista
+    cluster_movies = cluster_movies[cluster_movies['title'] != titulo]
+
+    # Ordenar las películas del cluster por popularidad de forma descendente
+    cluster_movies = cluster_movies.sort_values(by='popularity', ascending=False)
+
+    # Obtener los títulos de las películas más populares dentro del cluster (excluyendo la película de referencia)
+    recommended_movies = cluster_movies['title'].tolist()[:5]
+
+    # Retornar la lista de los 5 títulos más populares dentro del cluster (excluyendo la película de referencia)
+    return recommended_movies
