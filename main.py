@@ -1,5 +1,5 @@
 # Librerias 
-
+from fastapi import FastAPI
 import numpy as np
 import pandas as pd
 import json
@@ -20,6 +20,8 @@ df_movies_final = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_In
 # Cargo df_recomendaciones
 df_recomendacion = pd.read_parquet('C:/Users/54280/Desktop/Henry/Labs_Proyecto_Individual_I/Proyecto _recomendacion_peliculas_Api/Dataset/df_recomendacion')
 ''' 
+app = FastAPI()
+
 # Cargo df a utilizar en las funciones
 df = pd.read_parquet('Dataset\df_final_con_modelo')
 
@@ -27,7 +29,7 @@ df = pd.read_parquet('Dataset\df_final_con_modelo')
 def selecciono_df_mes(dataframe):
     global df
 
-#@app.get('/cantidad_filmaciones_mes/{mes}')
+@app.get('/cantidad_filmaciones_mes/{mes}')
 def cantidad_filmaciones_mes(mes: str):
     global df  # Configuro el dataset a utilizar 
     
@@ -45,14 +47,8 @@ def cantidad_filmaciones_mes(mes: str):
     # Obtengo la cantidad de películas para ese día
     respuesta = len(df1)
     return {'dia': mes, 'cantidad': respuesta}
-
-# Uso funcion mes 
-selecciono_df_mes(df)
-mes_input = input("Ingrese el mes en español: ")
-resultado = cantidad_filmaciones_mes(mes_input)
-print(resultado)
     
-#@app.get('/cantidad_filmaciones_dia{dia}')
+@app.get('/cantidad_filmaciones_dia{dia}')
 def cantidad_filmaciones_dia(dia: str):
     global df # Configuro el dataset a utilizar
     '''
@@ -77,12 +73,7 @@ def cantidad_filmaciones_dia(dia: str):
     else:
         return {'dia': dia, 'cantidad': 0}
 
-dia_input = input("Ingrese el día en español: ")
-resultado = cantidad_filmaciones_dia(dia_input)
-print(resultado)
-
-
-#@app.get('/votos_titulo/{titulo}')
+@app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
     global df #Configuro df a utlizar 
     
@@ -110,7 +101,7 @@ def votos_titulo(titulo:str):
     
     return {'titulo':filtro, 'anio':ano_estreno, 'voto_total': votos, 'voto_promedio': promedio}
 
-#@app.get('/get_actor/{nombre_actor}')
+@app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor:str):
     global df #Configuro df a utlizar 
     
@@ -148,7 +139,7 @@ def get_actor(nombre_actor:str):
     return json_resultado
 
 
-#@app.get('/get_director/{nombre_director}')
+@app.get('/get_director/{nombre_director}')
 def get_director(nombre_director:str):
     global df #Configuro df a utlizar 
     
@@ -187,7 +178,7 @@ def get_director(nombre_director:str):
     return json_resultado2     
     
 # ML
-#@app.get('/recomendacion/{titulo}')
+@app.get('/recomendacion/{titulo}')
 def recomendacion(titulo:str):
     global df #Configuro df a utlizar 
     
