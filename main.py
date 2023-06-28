@@ -12,7 +12,7 @@ dir_actual = os.getcwd()+'/Dataset/'
 
 @app.get('/cantidad_filmaciones_mes/{mes}')
 def cantidad_filmaciones_mes(mes: str):
-    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
+    df = pd.read_parquet(dir_actual+'df_mes')
        
     '''
     Se ingresa el mes en español y la función retorna la cantidad de películas que se 
@@ -31,7 +31,7 @@ def cantidad_filmaciones_mes(mes: str):
     
 @app.get('/cantidad_filmaciones_dia{dia}')
 def cantidad_filmaciones_dia(dia: str):
-    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
+    df = pd.read_parquet(dir_actual+'df_dia')
     
     '''
     Se ingresa el dia y la funcion retorna la cantidad de peliculas que se 
@@ -57,7 +57,7 @@ def cantidad_filmaciones_dia(dia: str):
 
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
-    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
+    df = pd.read_parquet(dir_actual+'df_scort')
     
     '''
     Se ingresa el título de una filmación esperando como respuesta el título, la cantidad de votos y el valor 
