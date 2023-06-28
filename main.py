@@ -8,16 +8,16 @@ import json
 app = FastAPI()
 
 # Cargo df a utilizar en las funciones
-@app.get("/dataframe")
-def get_dataframe():
-    # Lee el archivo Parquet desde el repositorio y crea el DataFrame
-    df = fastparquet.ParquetFile("https://github.com/MatB1988/Proyecto-_recomendacion_peliculas_Api/blob/9dd2eacbf540d8b18432cb6b506acbd5ff62be49/Dataset/df_final_con_modelo").to_pandas()
+#@app.get("/dataframe")
+#def get_dataframe():
+# Lee el archivo Parquet desde el repositorio y crea el DataFrame
+df = fastparquet.ParquetFile("https://github.com/MatB1988/Proyecto-_recomendacion_peliculas_Api/blob/9dd2eacbf540d8b18432cb6b506acbd5ff62be49/Dataset/df_final_con_modelo").to_pandas()
 
     # Realiza las operaciones o consultas necesarias con el DataFrame
     # ...
 
     # Devuelve el DataFrame como respuesta de la solicitud
-    return df.to_dict(orient="records")
+ #   return df.to_dict(orient="records")
 
 @app.get('/cantidad_filmaciones_mes/{mes}')
 def cantidad_filmaciones_mes(mes: str):
@@ -82,7 +82,7 @@ def votos_titulo(titulo:str):
     promedio = df_filtro['vote_average'].values[0]
     
     if votos < 2000:
-        print('La pelicula no cumple con la condicion de tener al menos 2000 valoraciones.')
+        print({'La pelicula no cumple con la condicion de tener al menos 2000 valoraciones.'})
         return
     
     ano_estreno = df_filtro['release_year'].values[0]    
