@@ -1,6 +1,5 @@
 # Librerias 
-import requests
-from io import BytesIO
+import os
 from fastapi import FastAPI
 import numpy as np
 import pandas as pd
@@ -9,18 +8,11 @@ import json
 
 app = FastAPI()
 
-url = "https://github.com/MatB1988/Proyecto-_recomendacion_peliculas_Api/raw/9dd2eacbf540d8b18432cb6b506acbd5ff62be49/Dataset/df_final_con_modelo.parquet"
-
-
-# Descargar el archivo desde GitHub
-response = requests.get(url)
-data = response.content
-
-# Leer el archivo Parquet desde la memoria
-df = fastparquet.ParquetFile(BytesIO(data)).to_pandas()
+dir_actual = os.getcwd()+'/Dataset/'
 
 @app.get('/cantidad_filmaciones_mes/{mes}')
 def cantidad_filmaciones_mes(mes: str):
+    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
        
     '''
     Se ingresa el mes en español y la función retorna la cantidad de películas que se 
