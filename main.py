@@ -31,6 +31,7 @@ def cantidad_filmaciones_mes(mes: str):
     
 @app.get('/cantidad_filmaciones_dia{dia}')
 def cantidad_filmaciones_dia(dia: str):
+    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
     
     '''
     Se ingresa el dia y la funcion retorna la cantidad de peliculas que se 
@@ -56,7 +57,8 @@ def cantidad_filmaciones_dia(dia: str):
 
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
-        
+    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
+    
     '''
     Se ingresa el título de una filmación esperando como respuesta el título, la cantidad de votos y el valor 
     promedio de las votaciones. 
@@ -83,7 +85,7 @@ def votos_titulo(titulo:str):
 
 @app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor:str):
-    
+    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
     
     '''
     Se ingresa el nombre de un actor que se encuentre dentro de un dataset debiendo devolver 
@@ -121,7 +123,7 @@ def get_actor(nombre_actor:str):
 
 @app.get('/get_director/{nombre_director}')
 def get_director(nombre_director:str):
-    
+    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
     
     ''' 
     Se ingresa el nombre de un director que se encuentre dentro de un dataset debiendo devolver el éxito del 
@@ -160,7 +162,7 @@ def get_director(nombre_director:str):
 # ML
 @app.get('/recomendacion/{titulo}')
 def recomendacion(titulo:str):
-    
+    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
     
     '''
     Ingresas un nombre de pelicula y te recomienda las similares en una lista
