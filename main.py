@@ -9,14 +9,9 @@ import json
 
 app = FastAPI()
 
-# Descargar el archivo Parquet desde GitHub
-url = "https://github.com/MatB1988/Proyecto-_recomendacion_peliculas_Api/raw/9dd2eacbf540d8b18432cb6b506acbd5ff62be49/Dataset/df_final_con_modelo.parquet"
-response = requests.get(url)
-file_content = response.content
-
 # Leer el archivo Parquet en un DataFrame
-buffer = io.BytesIO(file_content)
-df = fastparquet.ParquetFile(buffer).to_pandas()
+
+df = fastparquet.ParquetFile("https://github.com/MatB1988/Proyecto-_recomendacion_peliculas_Api/blob/9dd2eacbf540d8b18432cb6b506acbd5ff62be49/Dataset/df_final_con_modelo").to_pandas()
 
 # Cargo df a utilizar en las funciones
 #@app.get("/dataframe")
