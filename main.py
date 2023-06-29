@@ -57,7 +57,7 @@ def cantidad_filmaciones_dia(dia: str):
 
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
-    df = pd.read_parquet(dir_actual+'df_movies_scort')
+    df = pd.read_parquet(dir_actual+'df_movies_titulo')
     
     '''
     Se ingresa el título de una filmación esperando como respuesta el título, la cantidad de votos y el valor 
