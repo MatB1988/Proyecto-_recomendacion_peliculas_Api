@@ -81,7 +81,7 @@ def votos_titulo(titulo:str):
     
     ano_estreno = df_filtro['release_year'].values[0]    
     
-    return {'titulo':filtro, 'anio':ano_estreno, 'voto_total': votos, 'voto_promedio': promedio}
+    return {'titulo':str(filtro), 'anio':str(ano_estreno), 'voto_total': str(votos), 'voto_promedio': str(promedio)}
 
 @app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor:str):
