@@ -59,8 +59,7 @@ def cantidad_filmaciones_dia(dia: str):
 def score_titulo(titulo_de_la_filmacion):
     df = pd.read_parquet(dir_actual+'df_movies_score')
     
-    filtro = input("Ingrese el titulo de la pelicula que quiere saber los votos: ")
-    df_filtro = df[df['title'] == filtro]   
+    df_filtro = df[df['title'] == titulo_de_la_filmacion]   
     
     if len(df_filtro) == 0:
         print('No se encontró la pelicula con el título')
@@ -69,7 +68,7 @@ def score_titulo(titulo_de_la_filmacion):
     scort = df_filtro['popularity'].values[0]
     ano_estreno = df_filtro['release_year'].values[0]
     
-    return {"La película", filtro, "fue estrenada en el año", ano_estreno, 'con un score/popularidad de',scort}
+    return {"La película", titulo_de_la_filmacion, "fue estrenada en el año", ano_estreno, 'con un score/popularidad de',scort}
 
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
@@ -81,8 +80,7 @@ def votos_titulo(titulo:str):
     La misma variable deberá de contar con al menos 2000 valoraciones, 
     caso contrario, debemos contar con un mensaje avisando que no cumple esta condición y que por ende, no se devuelve ningun valor.
     '''
-    filtro = input("Ingrese el titulo de la pelicula que quiere saber los votos: ")
-    df_filtro = df[df['title'] == filtro]  
+    df_filtro = df[df['title'] == titulo]  
     
     if len(df_filtro) == 0:
         print('No se encontró la pelicula con el título')
@@ -97,12 +95,12 @@ def votos_titulo(titulo:str):
     
     ano_estreno = df_filtro['release_year'].values[0]    
     
-    return {'titulo':str(filtro), 'anio':str(ano_estreno), 'voto_total': str(votos), 'voto_promedio': str(promedio)}
+    return {'titulo':str(titulo), 'anio':str(ano_estreno), 'voto_total': str(votos), 'voto_promedio': str(promedio)}
 
 
 @app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor:str):
-    df = pd.read_parquet(dir_actual+'df_actor')
+    df = pd.read_parquet(dir_actual+'df_actores')
     
     '''
     Se ingresa el nombre de un actor que se encuentre dentro de un dataset debiendo devolver 
