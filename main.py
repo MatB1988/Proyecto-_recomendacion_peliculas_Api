@@ -56,6 +56,24 @@ def cantidad_filmaciones_dia(dia: str):
         return {'dia': dia, 'cantidad': 0}
 
 @app.get('/votos_titulo/{titulo}')
+def votos_titulo(titulo_de_la_filmacion):
+    df = pd.read_parquet(dir_actual+'df_movies_score')
+    
+    filtro = input("Ingrese el titulo de la pelicula que quiere saber los votos: ")
+    df_filtro = df3[df3['title'] == filtro]   
+    
+    if len(df_filtro) == 0:
+        print('No se encontró la pelicula con el título')
+        return
+
+    scort = df_filtro['popularity'].values[0]
+    ano_estreno = df_filtro['release_year'].values[0]
+    
+    return {"La película", filtro, "fue estrenada en el año", ano_estreno, 'con un score/popularidad de',scort}
+
+
+
+@app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
     df = pd.read_parquet(dir_actual+'df_movies_titulo')
     
