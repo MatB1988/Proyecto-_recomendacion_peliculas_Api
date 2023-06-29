@@ -58,7 +58,12 @@ def cantidad_filmaciones_dia(dia: str):
 @app.get('/score_titulo/{titulo_de_la_filmacion}')
 def score_titulo(titulo_de_la_filmacion):
     df = pd.read_parquet(dir_actual + 'df_movies_score')
-
+    '''
+    Se ingresa el título de una filmación esperando como respuesta el título, el año de estreno y el score/popularidad.
+    '''
+    # Espacios en blanco
+    titulo_de_la_filmacion = titulo_de_la_filmacion.replace("%20", " ")
+    
     df_filtro = df[df['title'] == titulo_de_la_filmacion]
 
     if len(df_filtro) == 0:
@@ -79,6 +84,9 @@ def votos_titulo(titulo:str):
     La misma variable deberá de contar con al menos 2000 valoraciones, 
     caso contrario, debemos contar con un mensaje avisando que no cumple esta condición y que por ende, no se devuelve ningun valor.
     '''
+    # Espacios en blanco 
+    titulo = titulo.replace("%20", " ")
+    
     df_filtro = df[df['title'] == titulo]
 
     if len(df_filtro) == 0:
