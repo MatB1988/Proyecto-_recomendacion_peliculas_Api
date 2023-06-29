@@ -57,46 +57,41 @@ def cantidad_filmaciones_dia(dia: str):
 
 @app.get('/score_titulo/{titulo_de_la_filmacion}')
 def score_titulo(titulo_de_la_filmacion):
-    df = pd.read_parquet(dir_actual+'df_movies_score')
-    
-    df_filtro = df[df['title'] == titulo_de_la_filmacion]   
-    
-    if len(df_filtro) == 0:
-        print('No se encontró la pelicula con el título')
-        return
+    df = pd.read_parquet(dir_actual + 'df_movies_score')
 
-    scort = df_filtro['popularity'].values[0]
+    df_filtro = df[df['title'] == titulo_de_la_filmacion]
+
+    if len(df_filtro) == 0:
+        return {'mensaje': 'No se encontró la película con el título'}
+    
+    score = df_filtro['popularity'].values[0]
     ano_estreno = df_filtro['release_year'].values[0]
     
-    return {"La película", titulo_de_la_filmacion, "fue estrenada en el año", ano_estreno, 'con un score/popularidad de',scort}
+    return {"mensaje": f"La película '{titulo_de_la_filmacion}' fue estrenada en el año {ano_estreno} con un score/popularidad de {score}"}
+
 
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
-    df = pd.read_parquet(dir_actual+'df_movies_titulo')
-    
+    df = pd.read_parquet(dir_actual + 'df_movies_titulo')
     '''
     Se ingresa el título de una filmación esperando como respuesta el título, la cantidad de votos y el valor 
     promedio de las votaciones. 
     La misma variable deberá de contar con al menos 2000 valoraciones, 
     caso contrario, debemos contar con un mensaje avisando que no cumple esta condición y que por ende, no se devuelve ningun valor.
     '''
-    df_filtro = df[df['title'] == titulo]  
-    
+    df_filtro = df[df['title'] == titulo]
+
     if len(df_filtro) == 0:
-        print('No se encontró la pelicula con el título')
-        return
-    
+        return {'mensaje': 'No se encontró la película con el título'}
+
     votos = df_filtro['vote_count'].values[0]
     promedio = df_filtro['vote_average'].values[0]
-    
-    if votos < 2000:
-        print({'La pelicula no cumple con la condicion de tener al menos 2000 valoraciones.'})
-        return
-    
-    ano_estreno = df_filtro['release_year'].values[0]    
-    
-    return {'titulo':str(titulo), 'anio':str(ano_estreno), 'voto_total': str(votos), 'voto_promedio': str(promedio)}
 
+    if votos < 2000:
+        return {'mensaje': 'La película no cumple con la condición de tener al menos 2000 valoraciones.'}
+
+    ano_estreno = df_filtro['release_year'].values[0]
+    return {'titulo': titulo, 'anio': str(ano_estreno), 'voto_total': str(votos), 'voto_promedio': str(promedio)}
 
 @app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor:str):
