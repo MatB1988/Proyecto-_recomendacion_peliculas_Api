@@ -69,11 +69,7 @@ def score_titulo(titulo_de_la_filmacion):
     scort = df_filtro['popularity'].values[0]
     ano_estreno = df_filtro['release_year'].values[0]
     
-    return {"La película", filtro, "fue estrenada en el año", ano_estreno, 'con un score/popularidad de',scort}
-
-
-
-@app.get('/votos_titulo/{titulo}')
+    return {"La película", filtro, "fue estrenada en el año", ano_estreno, 'con un score/popularidad de',scort}@app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
     df = pd.read_parquet(dir_actual+'df_movies_titulo')
     
@@ -100,6 +96,7 @@ def votos_titulo(titulo:str):
     ano_estreno = df_filtro['release_year'].values[0]    
     
     return {'titulo':str(filtro), 'anio':str(ano_estreno), 'voto_total': str(votos), 'voto_promedio': str(promedio)}
+
 
 @app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor:str):
