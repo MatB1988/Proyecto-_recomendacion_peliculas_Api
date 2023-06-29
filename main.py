@@ -106,19 +106,13 @@ def get_actor(nombre_actor:str):
 
     # Calculo el promedio de retorno por película
     promedio_retorno = retorno_total / cantidad_peliculas
-
-    # Creo el diccionario de resultados
-    resultados = {
+   
+    
+    return {
         "exito_actor": f"El actor {nombre_actor} ha participado de {cantidad_peliculas} cantidad de filmaciones, el mismo ha conseguido un retorno de {retorno_total} con un promedio de {promedio_retorno} por filmación",
         "cantidad_peliculas": cantidad_peliculas,
         "promedio_retorno": promedio_retorno
     }
-
-    # Converto los resultados a formato JSON
-    json_resultado = json.dumps(resultados)
-    
-    
-    return json_resultado
 
 
 @app.get('/get_director/{nombre_director}')
@@ -148,16 +142,10 @@ def get_director(nombre_director:str):
         }
         peliculas.append(pelicula)
 
-    # Cre0 el diccionario de resultados
-    resultados2 = {
+    return {
         "exito_director": f"El director {nombre_director} ha tenido éxito con un promedio de retorno de {promedio_retorno}",
         "peliculas": peliculas
-    }
-
-    # Converto los resultados a formato JSON
-    json_resultado2 = json.dumps(resultados2)
-
-    return json_resultado2     
+    }   
     
 # ML
 @app.get('/recomendacion/{titulo}')
