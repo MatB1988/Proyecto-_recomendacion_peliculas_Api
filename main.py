@@ -134,7 +134,7 @@ def get_director(nombre_director:str):
     peliculas = []
     for index, row in director_films.iterrows():
         pelicula = {
-            "nombre": row['original_title'],
+            "nombre": row['title'],
             "fecha_lanzamiento": str(row['release_date']),
             "retorno": row['return'],
             "costo": row['budget'],
