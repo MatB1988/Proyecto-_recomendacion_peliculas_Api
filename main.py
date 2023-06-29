@@ -55,7 +55,7 @@ def cantidad_filmaciones_dia(dia: str):
     else:
         return {'dia': dia, 'cantidad': 0}
 
-@app.get('/score_titulo/{titulo}')
+@app.get('/score_titulo/{titulo_de_la_filmacion}')
 def score_titulo(titulo_de_la_filmacion):
     df = pd.read_parquet(dir_actual+'df_movies_score')
     
