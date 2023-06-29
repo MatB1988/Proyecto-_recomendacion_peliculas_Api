@@ -109,8 +109,6 @@ def get_actor(nombre_actor:str):
     el éxito del mismo medido a través del retorno. 
     Además, la cantidad de películas que en las que ha participado y el promedio de retorno
     '''
-    # Solicito el nombre del actor por teclado
-    nombre_actor = input("Ingrese el nombre del actor: ").lower()
 
     # Filtro el DataFrame por el nombre del actor en minúsculas
     actor_films = df[df['actores'].apply(lambda actores: nombre_actor in [a.lower() for a in actores])]
@@ -131,15 +129,15 @@ def get_actor(nombre_actor:str):
 
 @app.get('/get_director/{nombre_director}')
 def get_director(nombre_director:str):
-    df = pd.read_parquet(dir_actual+'df_final_con_modelo')
+    df = pd.read_parquet(dir_actual+'df_director')
     
     ''' 
     Se ingresa el nombre de un director que se encuentre dentro de un dataset debiendo devolver el éxito del 
     mismo medido a través del retorno. 
     Además, deberá devolver el nombre de cada película con la fecha de lanzamiento, retorno individual, costo y ganancia de la misma.
     '''
-    # Filtroel DataFrame por el nombre del director
-    director_films = df[df['director'] == nombre_director]
+    # Filtro el DataFrame por el nombre del director
+    director_films = df[df['director'].str.lower() == nombre_director.lower()]
 
     # Calculo el éxito del director como el promedio de retorno de todas las películas dirigidas por él
     promedio_retorno = director_films['return'].mean()
