@@ -109,6 +109,8 @@ def get_actor(nombre_actor:str):
     el éxito del mismo medido a través del retorno. 
     Además, la cantidad de películas que en las que ha participado y el promedio de retorno
     '''
+     # Convertir el nombre del director a minúsculas
+    nombre_actor = nombre_actor.lower()
 
     # Filtro el DataFrame por el nombre del actor en minúsculas
     actor_films = df[df['actores'].apply(lambda actores: nombre_actor in [a.lower() for a in actores])]
@@ -128,21 +130,24 @@ def get_actor(nombre_actor:str):
 
 
 @app.get('/get_director/{nombre_director}')
-def get_director(nombre_director:str):
-    df = pd.read_parquet(dir_actual+'df_director')
+def get_director(nombre_director: str):
+    df = pd.read_parquet(dir_actual + 'df_director')
     
-    ''' 
+    '''
     Se ingresa el nombre de un director que se encuentre dentro de un dataset debiendo devolver el éxito del 
     mismo medido a través del retorno. 
     Además, deberá devolver el nombre de cada película con la fecha de lanzamiento, retorno individual, costo y ganancia de la misma.
     '''
-    # Filtro el DataFrame por el nombre del director
-    director_films = df[df['director'].str.lower() == nombre_director.lower()]
+    # Convertir el nombre del director a minúsculas
+    nombre_director = nombre_director.lower()
+
+    # Filtrar el DataFrame por el nombre del director
+    director_films = df[df['director'].str.lower().str.contains(nombre_director)]
 
     # Calculo el éxito del director como el promedio de retorno de todas las películas dirigidas por él
     promedio_retorno = director_films['return'].mean()
 
-    # Creo la lista de películas dirigidas por el director con su información correspondiente
+    # Crear la lista de películas dirigidas por el director con su información correspondiente
     peliculas = []
     for index, row in director_films.iterrows():
         pelicula = {
@@ -157,7 +162,8 @@ def get_director(nombre_director:str):
     return {
         "exito_director": f"El director {nombre_director} ha tenido éxito con un promedio de retorno de {promedio_retorno}",
         "peliculas": peliculas
-    }   
+    }
+
     
 # ML
 @app.get('/recomendacion/{titulo}')
