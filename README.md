@@ -113,7 +113,7 @@ En el sistema de recomendacion la funcion filtra el titulo de la pelicula identi
 
 # <h2 align=center> Consideraciones finales </h2>
 
-Haciendo una recapacitacion interna, se pudo mejor varios procesos del desarrollo del proyecto y llegar a mejores resultados. Hoy contando con mayor experiencia considero que tengo varios aspectos a mejorar en el proyecto pero para el tiempo que se contaba para la realizacion del mismo y la inexperiencia que poseia en varios aspectos considero que es una buena implantacion de una api y un sistema de recomendaciones.
+Haciendo una recapitulación interna, se pudo mejor varios procesos del desarrollo del proyecto y llegar a mejores resultados. Hoy contando con mayor experiencia considero que tengo varios aspectos a mejorar en el proyecto pero para el tiempo que se contaba para la realizacion del mismo y la inexperiencia que poseia en varios aspectos considero que es una buena implantacion de una api y un sistema de recomendaciones.
 
 # <h3 align=center> Link </h3>
 
