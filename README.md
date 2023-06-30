@@ -1,3 +1,7 @@
+<p align="center">
+<img src="src/logo proyecto.png"  height=300>
+</p>
+
 <h1 align="center">Proyecto Recomendación Películas + API</h1>
 
 El siguiente proyecto se generó con la intención de mostrar un Producto Mínimo Viable (MVP). Aborda la problemática de un sistema de recomendaciones que abarca desde la recolección y tratamiento de datos hasta la generación del modelo y las funcionalidades de la aplicación, incluyendo la implementación de una API en línea funcional.
@@ -39,8 +43,21 @@ El proyecto me presento varios retos a nivel de datos, ya que varias columna ten
 
 El EDA se dividió en análisis de variables categóricas y numéricas para un mejor análisis. A continuación, se muestran algunas imágenes de los análisis realizados:
 
+<p align="left">
+<img src="src/Distribicion de peliculas por dias de estreno.png"  height=300>
+</p>
 
-### Adjuntar imagenes ### 
+<p align="center">
+<img src="src/Matriz de correlacion.png"  height=300>
+</p>
+
+<p align="center">
+<img src="src/Peliculas mas populares.png"  height=300>
+</p>
+
+<p align="right">
+<img src="src/Relacion de presupuesto y cantidad de votos.png"  height=300>
+</p>
 
 # <h2 align=center> Modelo Machine Learning </h2>
 
@@ -56,7 +73,8 @@ El mismo fue generado y se busco los cluster optimos para la realizacion.
 
 En cuanto a las variables que se usaron para la generacion del modelo, me limite a las numericas ya que al querer transformar variables categoriacas a un formato que el modelo pudiera utilizar el costo computacional de la tarea era muy elevado. Con lo cual opte por usar la variables numericas y generar una nueva columna donde se identifica a que cluster pertenece la pelicula.
 
-### adjuntar imagen de los cluster
+<p align="center">
+<img src="src/codo K-mean.png" 
 
 # <h2 align=center> API y funcionalidades </h2>
 
@@ -87,12 +105,15 @@ Las funcionalidades generaras fueron las siguientes:
 
 En el sistema de recomendacion la funcion filtra el titulo de la pelicula identificando al cluster que pertenece y se procede a hacer un top 5 por la columna popularidad donde no se tiene en cuenta el titulo de la pelicula proporcionada.
 
-### Agregar imagen de la api
+<p align="center">
+<img src="src/render deploy.png" 
+
+<p align="center">
+<img src="src/Render API.png" 
 
 # <h2 align=center> Consideraciones finales </h2>
 
 Haciendo una recapacitacion interna, se pudo mejor varios procesos del desarrollo del proyecto y llegar a mejores resultados. Hoy contando con mayor experiencia considero que tengo varios aspectos a mejorar en el proyecto pero para el tiempo que se contaba para la realizacion del mismo y la inexperiencia que poseia en varios aspectos considero que es una buena implantacion de una api y un sistema de recomendaciones.
-
 
 # <h3 align=center> Link </h3>
 
