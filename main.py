@@ -1,6 +1,7 @@
 # Librerias 
 import os
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 import numpy as np
 import pandas as pd
 import fastparquet
@@ -9,6 +10,109 @@ import json
 app = FastAPI()
 
 dir_actual = os.getcwd()+'/Dataset/'
+
+
+# Ruta principal
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    titulo = "Bienvenido a Mi App de Películas"
+    logo1 = "/src/logo proyecto.png"
+
+    return f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>{titulo}</title>
+        </head>
+        <body>
+            <div style="text-align: center; margin-top: 20px;">
+                <h1>{titulo}</h1>
+                <img src="{logo1}" alt="Logo 1" width="100" height="100">
+            </div>
+        </body>
+        </html>
+    """
+
+dir_actual = os.getcwd()+'/Dataset/'
+
+
+@app.get('/peliculas_idioma/{idioma}')
+def peliculas_idioma(idioma: str):
+    df = pd.read_parquet(dir_actual+'df_idioma_agrupado')
+    
+    '''
+    Se ingresa un idioma, debe devolver la cantidad de películas producidas en ese idioma.
+    Ejemplo de retorno: X cantidad de películas fueron estrenadas en idioma.
+    '''
+    cantidad_peliculas = df[df['original_language'] == idioma]['cantidad_peliculas'].sum()
+    return {'mensaje': f"La cantidad de peliculas estrenadas en idioma {idioma} es de {cantidad_peliculas}"}
+
+@app.get('/peliculas_duracion/{titulo_de_la_filmacion}')
+def peliculas_duracion(titulo_de_la_filmacion: str):
+    df = pd.read_parquet(dir_actual + 'df_movies_final')
+    '''
+    Se ingresa una película. Debe devolver la duración y el año.
+    Ejemplo de retorno: X. Duración: X minutos. Año: XXXX.
+    '''
+    # Espacios en blanco
+    titulo_de_la_filmacion = titulo_de_la_filmacion.replace("%20", " ")
+    
+    df_filtro = df[df['title'] == titulo_de_la_filmacion]
+
+    if len(df_filtro) == 0:
+        return {'mensaje': 'No se encontró la película con el título especificado'}
+    
+    # Obtengo los valores de duración y año de estreno
+    runtime = df_filtro['runtime'].values[0]
+    ano_estreno = df_filtro['release_year'].values[0]
+    
+    return {"mensaje": f"La película '{titulo_de_la_filmacion}' fue estrenada en el año {ano_estreno} con una duración de {runtime} minutos."}
+
+
+@app.get('/franquicia/{franquicia}')
+def franquicia(franquicia: str):
+    df = pd.read_parquet(dir_actual + 'df_movies_final')
+    
+    '''
+    Se ingresa la franquicia, retornando la cantidad de peliculas, ganancia total y promedio
+    Ejemplo de retorno: La franquicia X posee X peliculas, una ganancia total de x y una ganancia promedio de xx
+    '''
+    # Filtro las películas que pertenecen a la franquicia
+    franquicia_df = df[df['belongs_to_collection'] == franquicia]
+
+    if franquicia_df.empty:
+        return {'mensaje': f'No se encontró la franquicia "{franquicia}" en la base de datos.'}
+
+    # Calculo la cantidad de películas, ganancia total y promedio
+    cantidad_peliculas = len(franquicia_df)
+    ganancia_total = franquicia_df['revenue'].sum()
+    ganancia_promedio = franquicia_df['revenue'].mean()
+
+    return {
+        'mensaje': f'La franquicia "{franquicia}" posee {cantidad_peliculas} películas, una ganancia total de {ganancia_total} y una ganancia promedio de {ganancia_promedio}.'
+    }
+
+@app.get('/peliculas_pais/{pais}')
+def peliculas_pais(pais: str):
+    df = pd.read_parquet(dir_actual + 'df_movies_final')
+    
+    '''
+    Se ingresa un país, retornando la cantidad de peliculas producidas en el mismo.
+    Ejemplo de retorno: Se produjeron X películas en el país X
+
+    '''
+    # Filtro las películas producidas en el país especificado
+    peliculas_pais_df = df[df['production_countries'].str.contains(pais)]
+
+    if peliculas_pais_df.empty:
+        return {'mensaje': f'No se encontraron películas producidas en el país "{pais}" en la base de datos.'}
+
+    # Calculo la cantidad de películas producidas en el país
+    cantidad_peliculas = len(peliculas_pais_df)
+
+    return {
+        'mensaje': f'Se produjeron {cantidad_peliculas} películas en el país "{pais}".'
+    }
 
 @app.get('/cantidad_filmaciones_mes/{mes}')
 def cantidad_filmaciones_mes(mes: str):
@@ -27,7 +131,7 @@ def cantidad_filmaciones_mes(mes: str):
 
     # Obtengo la cantidad de películas para ese día
     respuesta = len(df1)
-    return {'dia': mes, 'cantidad': respuesta}
+    return {'mes': mes, 'cantidad': respuesta}
     
 @app.get('/cantidad_filmaciones_dia{dia}')
 def cantidad_filmaciones_dia(dia: str):
