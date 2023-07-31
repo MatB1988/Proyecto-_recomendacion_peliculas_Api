@@ -2,6 +2,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 import numpy as np
 import pandas as pd
 import fastparquet
@@ -12,11 +13,14 @@ app = FastAPI()
 dir_actual = os.getcwd()+'/Dataset/'
 
 
+# Monto la carpeta "static" en la ruta "/static"
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # Ruta principal
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     titulo = "Bienvenido a Mi App de Películas"
-    logo1 = "/static/logo proyecto.png"
+    logo1 = "/static/logo_proyecto.png"
 
     return f"""
         <!DOCTYPE html>
