@@ -16,7 +16,7 @@ dir_actual = os.getcwd()+'/Dataset/'
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     titulo = "Bienvenido a Mi App de Películas"
-    logo1 = "/src/logo proyecto.png"
+    logo1 = "/static/logo proyecto.png"
 
     return f"""
         <!DOCTYPE html>
