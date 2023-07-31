@@ -32,8 +32,8 @@ def read_root():
         <body>
             <div style="text-align: center; margin-top: 20px;">
                 <h1>{titulo}</h1>
-                <img src="{logo1}" alt="Logo 1" width="100" height="100">
-                <img src="{logo2}" alt="Logo 1" width="100" height="100">
+                <img src="{logo1}" alt="Logo 1" width="200" height="200">
+                <img src="{logo2}" alt="Logo 1" width="200" height="200">
             </div>
         </body>
         </html>
