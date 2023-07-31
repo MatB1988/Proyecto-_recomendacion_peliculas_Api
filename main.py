@@ -20,7 +20,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     titulo = "Bienvenido a Mi App de Películas"
-    logo1 = "/static/logo_proyecto.png"
+    logo1 = "/static/logo1.png"
+    logo2 = "/static/logo2.png"
 
     return f"""
         <!DOCTYPE html>
@@ -32,6 +33,7 @@ def read_root():
             <div style="text-align: center; margin-top: 20px;">
                 <h1>{titulo}</h1>
                 <img src="{logo1}" alt="Logo 1" width="100" height="100">
+                <img src="{logo2}" alt="Logo 1" width="100" height="100">
             </div>
         </body>
         </html>
