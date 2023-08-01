@@ -38,17 +38,7 @@ def read_root():
                 <br>
                 <h2>Funciones disponibles:</h2>
                 <ul>
-                    <li><a href="/peliculas_idioma/{idioma}">Consultar cantidad de películas por idioma</a></li>
                     <li><a href="/peliculas_duracion/{peliculas_duracion}">Consultar duración y año de una película</a></li>
-                    <li><a href="/franquicia/{franquicia}">Consultar franquicia</a></li>
-                    <li><a href="/peliculas_pais/{pais}">Consultar cantidad de películas por país</a></li>
-                    <li><a href="/cantidad_filmaciones_mes/{mes}">Consultar cantidad de filmaciones por mes</a></li>
-                    <li><a href="/cantidad_filmaciones_dia/{dia}">Consultar cantidad de filmaciones por día</a></li>
-                    <li><a href="/score_titulo/{titulo_de_la_filmacion}">Consultar score de una película</a></li>
-                    <li><a href="/votos_titulo/{titulo}">Consultar votos de una película</a></li>
-                    <li><a href="/nombre_actor/{nombre_actor}>Consultar éxito de un actor</a></li>
-                    <li><a href="/nombre_director/{nombre_director}">Consultar éxito de un director</a></li>
-                    <li><a href="/recomendacion/{recomendacion}">Obtener recomendación de películas similares</a></li>
                 </ul>
             </div>
         </body>
