@@ -26,7 +26,6 @@ def mostrar_consulta_peliculas_idioma():
     return {"mensaje": "Consulta la cantidad de películas por idioma", "idiomas": lista_idiomas}
 
 
-# Ruta principal
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     titulo = "Bienvenido a Mi App de Películas"
@@ -43,19 +42,28 @@ def read_root():
             <div style="text-align: center; margin-top: 20px;">
                 <h1>{titulo}</h1>
                 <img src="{logo1}" alt="Logo 1" width="200" height="200">
-                <img src="{logo2}" alt="Logo 1" width="200" height="200">
+                <img src="{logo2}" alt="Logo 2" width="200" height="200">
                 <br>
                 <br>
                 <h2>Funciones disponibles:</h2>
                 <ul>
                     <li><a href="/consultar_peliculas_idioma">Consultar cantidad de películas por idioma</a></li>
                     <li><a href="/consultar_peliculas_duracion">Consultar duración y año de una película</a></li>
-                    <!-- Agrega aquí los enlaces para las demás funciones -->
+                    <li><a href="/franquicia/{nombre_franquicia}">Consultar franquicia</a></li>
+                    <li><a href="/peliculas_pais/{nombre_pais}">Consultar cantidad de películas por país</a></li>
+                    <li><a href="/cantidad_filmaciones_mes/{nombre_mes}">Consultar cantidad de filmaciones por mes</a></li>
+                    <li><a href="/cantidad_filmaciones_dia/{nombre_dia}">Consultar cantidad de filmaciones por día</a></li>
+                    <li><a href="/score_titulo/{titulo_de_la_filmacion}">Consultar score de una película</a></li>
+                    <li><a href="/votos_titulo/{titulo_de_la_filmacion}">Consultar votos de una película</a></li>
+                    <li><a href="/get_actor/{nombre_actor}">Consultar éxito de un actor</a></li>
+                    <li><a href="/get_director/{nombre_director}">Consultar éxito de un director</a></li>
+                    <li><a href="/recomendacion/{titulo_de_la_filmacion}">Obtener recomendación de películas similares</a></li>
                 </ul>
             </div>
         </body>
         </html>
     """
+
 
 dir_actual = os.getcwd()+'/Dataset/'
 
