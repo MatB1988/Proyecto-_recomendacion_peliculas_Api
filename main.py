@@ -38,7 +38,6 @@ def read_root():
                 <br>
                 <h2>Funciones disponibles:</h2>
                 <ul>
-                    <li><a href="/peliculas_duracion/{peliculas_duracion}">Consultar duración y año de una película</a></li>
                 </ul>
             </div>
         </body>
