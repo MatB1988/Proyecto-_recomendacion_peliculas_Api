@@ -38,26 +38,23 @@ def read_root():
                 <br>
                 <h2>Funciones disponibles:</h2>
                 <ul>
-                    <li><a href="/consultar_peliculas_idioma">Consultar cantidad de películas por idioma</a></li>
-                    <li><a href="/consultar_peliculas_duracion">Consultar duración y año de una película</a></li>
-                    <li><a href="/franquicia/{nombre_franquicia}">Consultar franquicia</a></li>
-                    <li><a href="/peliculas_pais/{nombre_pais}">Consultar cantidad de películas por país</a></li>
-                    <li><a href="/cantidad_filmaciones_mes/{nombre_mes}">Consultar cantidad de filmaciones por mes</a></li>
-                    <li><a href="/cantidad_filmaciones_dia/{nombre_dia}">Consultar cantidad de filmaciones por día</a></li>
+                    <li><a href="/peliculas_idioma/{idioma}">Consultar cantidad de películas por idioma</a></li>
+                    <li><a href="/peliculas_duracion/{peliculas_duracion}">Consultar duración y año de una película</a></li>
+                    <li><a href="/franquicia/{franquicia}">Consultar franquicia</a></li>
+                    <li><a href="/peliculas_pais/{pais}">Consultar cantidad de películas por país</a></li>
+                    <li><a href="/cantidad_filmaciones_mes/{mes}">Consultar cantidad de filmaciones por mes</a></li>
+                    <li><a href="/cantidad_filmaciones_dia/{dia}">Consultar cantidad de filmaciones por día</a></li>
                     <li><a href="/score_titulo/{titulo_de_la_filmacion}">Consultar score de una película</a></li>
-                    <li><a href="/votos_titulo/{titulo_de_la_filmacion}">Consultar votos de una película</a></li>
-                    <li><a href="/get_actor/{nombre_actor}">Consultar éxito de un actor</a></li>
-                    <li><a href="/get_director/{nombre_director}">Consultar éxito de un director</a></li>
-                    <li><a href="/recomendacion/{titulo_de_la_filmacion}">Obtener recomendación de películas similares</a></li>
+                    <li><a href="/votos_titulo/{titulo}">Consultar votos de una película</a></li>
+                    <li><a href="/nombre_actor/{nombre_actor}>Consultar éxito de un actor</a></li>
+                    <li><a href="/nombre_director/{nombre_director}">Consultar éxito de un director</a></li>
+                    <li><a href="/recomendacion/{recomendacion}">Obtener recomendación de películas similares</a></li>
                 </ul>
             </div>
         </body>
         </html>
     """
-
-
 dir_actual = os.getcwd()+'/Dataset/'
-
 
 @app.get('/peliculas_idioma/{idioma}')
 def peliculas_idioma(idioma: str):
@@ -70,7 +67,7 @@ def peliculas_idioma(idioma: str):
     cantidad_peliculas = df[df['original_language'] == idioma]['cantidad_peliculas'].sum()
     return {'mensaje': f"La cantidad de peliculas estrenadas en idioma {idioma} es de {cantidad_peliculas}"}
 
-@app.get('/peliculas_duracion/{titulo_de_la_filmacion}')
+@app.get('/peliculas_duracion/{peliculas_duracion}')
 def peliculas_duracion(titulo_de_la_filmacion: str):
     df = pd.read_parquet(dir_actual + 'df_movies_final')
     '''
@@ -156,7 +153,7 @@ def cantidad_filmaciones_mes(mes: str):
     respuesta = len(df1)
     return {'mes': mes, 'cantidad': respuesta}
     
-@app.get('/cantidad_filmaciones_dia{dia}')
+@app.get('/cantidad_filmaciones_dia/{dia}')
 def cantidad_filmaciones_dia(dia: str):
     df = pd.read_parquet(dir_actual+'df_dia')
     
@@ -228,8 +225,8 @@ def votos_titulo(titulo:str):
     ano_estreno = df_filtro['release_year'].values[0]
     return {'titulo': titulo, 'anio': str(ano_estreno), 'voto_total': str(votos), 'voto_promedio': str(promedio)}
 
-@app.get('/get_actor/{nombre_actor}')
-def get_actor(nombre_actor:str):
+@app.get('/nombre_actor/{nombre_actor}')
+def nombre_actor(nombre_actor:str):
     df = pd.read_parquet(dir_actual+'df_actores')
     
     '''
@@ -257,8 +254,8 @@ def get_actor(nombre_actor:str):
         }
 
 
-@app.get('/get_director/{nombre_director}')
-def get_director(nombre_director: str):
+@app.get('/nombre_director/{nombre_director}')
+def nombre_director(nombre_director: str):
     df = pd.read_parquet(dir_actual + 'df_director')
     
     '''
@@ -294,7 +291,7 @@ def get_director(nombre_director: str):
 
     
 # ML
-@app.get('/recomendacion/{titulo}')
+@app.get('/recomendacion/{recomendacion}')
 def recomendacion(titulo:str):
     df = pd.read_parquet(dir_actual+'df_final_con_modelo')
     
