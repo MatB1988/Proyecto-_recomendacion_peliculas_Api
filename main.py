@@ -78,9 +78,14 @@ def peliculas_duracion(titulo_de_la_filmacion: str):
     
     return {"mensaje": f"La película '{titulo_de_la_filmacion}' fue estrenada en el año {ano_estreno} con una duración de {runtime} minutos."}
 
+from fastapi import FastAPI, Query
 
-@app.get('/franquicia/{franquicia}')
-def franquicia(franquicia: str):
+app = FastAPI()
+
+# Resto del código...
+
+@app.get('/franquicia/')
+def franquicia(franquicia: str = Query(..., description="Nombre de la franquicia")):
     df = pd.read_parquet(dir_actual + 'df_movies_final')
     
     '''
@@ -102,6 +107,32 @@ def franquicia(franquicia: str):
         'mensaje': f'La franquicia "{franquicia}" posee {cantidad_peliculas} películas, una ganancia total de {ganancia_total} y una ganancia promedio de {ganancia_promedio}.'
     }
 
+
+'''
+@app.get('/franquicia/{franquicia}')
+def franquicia(franquicia: str):
+    df = pd.read_parquet(dir_actual + 'df_movies_final')
+    
+    
+    #Se ingresa la franquicia, retornando la cantidad de peliculas, ganancia total y promedio
+    #Ejemplo de retorno: La franquicia X posee X peliculas, una ganancia total de x y una ganancia promedio de xx
+
+    # Filtro las películas que pertenecen a la franquicia
+    franquicia_df = df[df['belongs_to_collection'] == franquicia]
+
+    if franquicia_df.empty:
+        return {'mensaje': f'No se encontró la franquicia "{franquicia}" en la base de datos.'}
+
+    # Calculo la cantidad de películas, ganancia total y promedio
+    cantidad_peliculas = len(franquicia_df)
+    ganancia_total = franquicia_df['revenue'].sum()
+    ganancia_promedio = franquicia_df['revenue'].mean()
+
+    return {
+        'mensaje': f'La franquicia "{franquicia}" posee {cantidad_peliculas} películas, una ganancia total de {ganancia_total} y una ganancia promedio de {ganancia_promedio}.'
+    }
+    
+'''
 @app.get('/peliculas_pais/{pais}')
 def peliculas_pais(pais: str):
     df = pd.read_parquet(dir_actual + 'df_movies_final')
