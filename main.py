@@ -44,6 +44,14 @@ def read_root():
                 <h1>{titulo}</h1>
                 <img src="{logo1}" alt="Logo 1" width="200" height="200">
                 <img src="{logo2}" alt="Logo 1" width="200" height="200">
+                <br>
+                <br>
+                <h2>Funciones disponibles:</h2>
+                <ul>
+                    <li><a href="/consultar_peliculas_idioma">Consultar cantidad de películas por idioma</a></li>
+                    <li><a href="/consultar_peliculas_duracion">Consultar duración y año de una película</a></li>
+                    <!-- Agrega aquí los enlaces para las demás funciones -->
+                </ul>
             </div>
         </body>
         </html>
