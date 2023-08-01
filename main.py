@@ -16,15 +16,6 @@ dir_actual = os.getcwd()+'/Dataset/'
 # Monto la carpeta "static" en la ruta "/static"
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Ruta para mostrar la cantidad de películas por idioma
-@app.get("/consultar_peliculas_idioma")
-def mostrar_consulta_peliculas_idioma():
-    # Puedes agregar aquí el código para obtener la lista de idiomas disponibles
-    # Por ejemplo:
-    lista_idiomas = ['Abkhazian', 'Afrikaans', 'Amharic', 'Arabic', 'Aymara', 'Bulgarian', 'Bambara', 'Bengali', 'Tibetan', 'Bosnian', 'Catalan', 'Chinese', 'Czech', 'Welsh', 'Danish', 'German', 'Greek', 'English', 'Esperanto', 'Spanish', 'Estonian', 'Basque', 'Persian', 'Finnish', 'French', 'Frisian', 'Galician', 'Hebrew', 'Hindi', 'Croatian', 'Hungarian', 'Armenian', 'Indonesian', 'Icelandic', 'Italian', 'Inuktitut', 'Japanese', 'Javanese', 'Georgian', 'Kazakh', 'Kannada', 'Korean', 'Kurdish', 'Kyrgyz', 'Latin', 'Luxembourgish', 'Lao', 'Lithuanian', 'Latvian', 'Macedonian', 'Malayalam', 'Mongolian', 'Marathi', 'Malay', 'Maltese', 'Norwegian Bokmål', 'Nepali', 'Dutch', 'Norwegian', 'Punjabi', 'Polish', 'Pashto', 'Portuguese', 'Quechua', 'Romanian', 'Russian', 'Kinyarwanda', 'Serbo-Croatian', 'Sinhala', 'Slovak', 'Slovenian', 'Samoan', 'Albanian', 'Serbian', 'Swedish', 'Tamil', 'Telugu', 'Tajik', 'Thai', 'Tagalog', 'Turkish', 'Ukrainian', 'Urdu', 'Uzbek', 'Vietnamese', 'Wolof', 'Unknown', 'Chinese', 'Zulu']
-
-    return {"mensaje": "Consulta la cantidad de películas por idioma", "idiomas": lista_idiomas}
-
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():
