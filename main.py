@@ -1,7 +1,6 @@
 # Librerias 
 import os
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 import numpy as np
 import pandas as pd
@@ -44,9 +43,6 @@ def peliculas_duracion(titulo_de_la_filmacion: str):
     
     return {"mensaje": f"La película '{titulo_de_la_filmacion}' fue estrenada en el año {ano_estreno} con una duración de {runtime} minutos."}
 
-
-
-
 @app.get('/franquicia/{franquicia}')
 def franquicia(franquicia: str):
     df = pd.read_parquet(dir_actual + 'df_movies_final')
@@ -70,7 +66,6 @@ def franquicia(franquicia: str):
         'mensaje': f'La franquicia "{franquicia}" posee {cantidad_peliculas} películas, una ganancia total de {ganancia_total} y una ganancia promedio de {ganancia_promedio}.'
     }
     
-
 @app.get('/peliculas_pais/{pais}')
 def peliculas_pais(pais: str):
     df = pd.read_parquet(dir_actual + 'df_movies_final')
@@ -247,7 +242,6 @@ def nombre_director(nombre_director: str):
         "exito_director": f"El director {nombre_director} ha tenido éxito con un promedio de retorno de {promedio_retorno}",
         "peliculas": peliculas
     }
-
     
 # ML
 @app.get('/recomendacion/{recomendacion}')
