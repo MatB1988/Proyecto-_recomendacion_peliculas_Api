@@ -1,7 +1,6 @@
 # Librerias 
 import os
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 import numpy as np
 import pandas as pd
 import fastparquet
