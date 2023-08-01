@@ -12,38 +12,6 @@ app = FastAPI()
 
 dir_actual = os.getcwd()+'/Dataset/'
 
-
-# Monto la carpeta "static" en la ruta "/static"
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
-@app.get("/", response_class=HTMLResponse)
-def read_root():
-    titulo = "Bienvenido a Mi App de Películas"
-    logo1 = "/static/logo1.png"
-    logo2 = "/static/logo2.png"
-
-    return f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>{titulo}</title>
-        </head>
-        <body>
-            <div style="text-align: center; margin-top: 20px;">
-                <h1>{titulo}</h1>
-                <img src="{logo1}" alt="Logo 1" width="200" height="200">
-                <img src="{logo2}" alt="Logo 2" width="200" height="200">
-                <br>
-                <br>
-                <h2>Funciones disponibles:</h2>
-                <ul>
-            </div>
-        </body>
-        </html>
-    """
-dir_actual = os.getcwd()+'/Dataset/'
-
 @app.get('/peliculas_idioma/{idioma}')
 def peliculas_idioma(idioma: str):
     df = pd.read_parquet(dir_actual+'df_idioma_agrupado')
