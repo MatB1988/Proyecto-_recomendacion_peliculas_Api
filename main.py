@@ -38,7 +38,6 @@ def read_root():
                 <br>
                 <h2>Funciones disponibles:</h2>
                 <ul>
-                </ul>
             </div>
         </body>
         </html>
