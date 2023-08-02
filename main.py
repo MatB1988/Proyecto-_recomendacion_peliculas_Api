@@ -35,8 +35,3 @@ def peliculas_idioma_v2(idioma: str):
     df = pd.read_parquet(dir_actual + 'df_idioma_agrupado')
     cantidad_peliculas = df[df['original_language'] == idioma]['cantidad_peliculas'].sum()
     return {'mensaje': f"Versión 2 - La cantidad de peliculas estrenadas en idioma {idioma} es de {cantidad_peliculas}"}
-
-# Agregar más rutas aquí...
-
-# Iniciar la aplicación utilizando VersionedFastAPI
-app = VersionedFastAPI(app, version_format="{major}.{minor}")
