@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta de Películas por Idioma</title>
+</head>
+<body>
+    <h1>Consulta de Películas por Idioma</h1>
+    <p>Selecciona el idioma:</p>
+    <form action="/peliculas_idioma/{{idioma}}" method="get">
+        <select name="idioma">
+            {% for idioma_opcion in idiomas_completos %}
+            {% if idioma_opcion == idioma %}
+            <option value="{{ idioma_opcion }}" selected>{{ idioma_opcion }}</option>
+            {% else %}
+            <option value="{{ idioma_opcion }}">{{ idioma_opcion }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        <input type="submit" value="Consultar">
+    </form>
+</body>
+</html>
