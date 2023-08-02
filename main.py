@@ -21,7 +21,7 @@ def peliculas_idioma(idioma: str):
     cantidad_peliculas = df[df['original_language'] == idioma]['cantidad_peliculas'].sum()
     return {'mensaje': f"La cantidad de peliculas estrenadas en idioma {idioma} es de {cantidad_peliculas}"}
 
-@app.get('/peliculas_duracion/{peliculas_duracion}')
+@app.get('/peliculas_duracion/{titulo_de_la_filmacion}')
 def peliculas_duracion(titulo_de_la_filmacion: str):
     df = pd.read_parquet(dir_actual + 'df_movies_final')
     '''
