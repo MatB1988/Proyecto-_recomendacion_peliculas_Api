@@ -12,12 +12,14 @@ dir_actual = os.getcwd()+'/Dataset/'
 
 @app.get('/peliculas_idioma/{idioma}')
 def peliculas_idioma(idioma: str):
+    lista_idiomas = ['Abkhazian', 'Afrikaans', 'Amharic', 'Arabic', 'Aymara', 'Bulgarian', 'Bambara', 'Bengali', 'Tibetan', 'Bosnian', 'Catalan', 'Chinese', 'Czech', 'Welsh', 'Danish', 'German', 'Greek', 'English', 'Esperanto', 'Spanish', 'Estonian', 'Basque', 'Persian', 'Finnish', 'French', 'Frisian', 'Galician', 'Hebrew', 'Hindi', 'Croatian', 'Hungarian', 'Armenian', 'Indonesian', 'Icelandic', 'Italian', 'Inuktitut', 'Japanese', 'Javanese', 'Georgian', 'Kazakh', 'Kannada', 'Korean', 'Kurdish', 'Kyrgyz', 'Latin', 'Luxembourgish', 'Lao', 'Lithuanian', 'Latvian', 'Macedonian', 'Malayalam', 'Mongolian', 'Marathi', 'Malay', 'Maltese', 'Norwegian Bokmål', 'Nepali', 'Dutch', 'Norwegian', 'Punjabi', 'Polish', 'Pashto', 'Portuguese', 'Quechua', 'Romanian', 'Russian', 'Kinyarwanda', 'Serbo-Croatian', 'Sinhala', 'Slovak', 'Slovenian', 'Samoan', 'Albanian', 'Serbian', 'Swedish', 'Tamil', 'Telugu', 'Tajik', 'Thai', 'Tagalog', 'Turkish', 'Ukrainian', 'Urdu', 'Uzbek', 'Vietnamese', 'Wolof', 'Unknown', 'Chinese', 'Zulu'] 
     df = pd.read_parquet(dir_actual+'df_idioma_agrupado')
     
     '''
     Se ingresa un idioma, debe devolver la cantidad de películas producidas en ese idioma.
     Ejemplo de retorno: X cantidad de películas fueron estrenadas en idioma.
     '''
+    
     cantidad_peliculas = df[df['original_language'] == idioma]['cantidad_peliculas'].sum()
     return {'mensaje': f"La cantidad de peliculas estrenadas en idioma {idioma} es de {cantidad_peliculas}"}
 
