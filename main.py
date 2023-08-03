@@ -2,9 +2,6 @@
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI
-from fastapi.openapi.docs import get_swagger_ui_html
-from fastapi.openapi.models import APIKey
-from fastapi.openapi.utils import get_openapi
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi_versioning import VersionedFastAPI, version
@@ -12,16 +9,9 @@ import os
 import fastparquet
 import json
 
-app = FastAPI(title="Bienvenido a Mi API", version="1.0.0")
-templates = Jinja2Templates(directory="templates")
+app = FastAPI(title="Bienvenido a Mi API")
+
 dir_actual = os.getcwd()+'/Dataset/'
-
-# Ruta raíz para obtener el logotipo
-@app.get("/logo1.png", response_class=HTMLResponse)
-async def get_logo():
-    logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "logo1.png")
-    return {"file": open(logo_path, "rb")}
-
 
 @app.get('/peliculas_idioma/{idioma}')
 def peliculas_idioma(idioma: str):
