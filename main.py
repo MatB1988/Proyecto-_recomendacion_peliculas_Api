@@ -2,9 +2,6 @@
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-from fastapi_versioning import VersionedFastAPI, version
 import os
 import fastparquet
 import json
