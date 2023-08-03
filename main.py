@@ -23,7 +23,7 @@ async def read_root():
     <body>
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="/">
-                <img src="https://github.com/MatB1988/Proyecto-_recomendacion_peliculas_Api/blob/main/static/logo1.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+                <img src="https://ibb.co/9vt0VYf" width="30" height="30" class="d-inline-block align-top" alt="Logo">
                 FastAPI Logo Example
             </a>
         </nav>
