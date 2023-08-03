@@ -12,7 +12,7 @@ import json
 app = FastAPI(title="Bienvenido a Mi API")
 dir_actual = os.getcwd()+'/Dataset/'
 
-@app.get('/peliculas_idioma/os.getenv({idioma})')
+@os.getenv('/peliculas_idioma/{idioma}')
 def peliculas_idioma(idioma: str):
     df = pd.read_parquet(dir_actual+'df_idioma_agrupado')
     
