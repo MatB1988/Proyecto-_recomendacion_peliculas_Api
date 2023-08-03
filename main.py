@@ -10,32 +10,6 @@ import fastparquet
 import json
 
 app = FastAPI(title="Bienvenido a Mi API")
-
-@app.get("/")
-async def read_root():
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>FastAPI Logo Example</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    </head>
-    <body>
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="/">
-                <img src="https://ibb.co/9vt0VYf" width="30" height="30" class="d-inline-block align-top" alt="Logo">
-                FastAPI Logo Example
-            </a>
-        </nav>
-        <div class="container mt-4">
-            <h1>Welcome to FastAPI with Logo</h1>
-            <p>
-                This is a simple example of how to add a logo to the homepage using FastAPI and Bootstrap.
-            </p>
-        </div>
-    </body>
-    </html>
-    """
 dir_actual = os.getcwd()+'/Dataset/'
 
 @app.get('/peliculas_idioma/{idioma}')
