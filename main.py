@@ -67,25 +67,14 @@ def franquicia(franquicia: str):
     
 @app.get('/peliculas_pais/{pais}')
 def peliculas_pais(pais: str):
-    df = pd.read_parquet(dir_actual + 'df_movies_final')
+    df = pd.read_parquet(dir_actual + 'df_paises_agrupados')
     
     '''
     Se ingresa un país, retornando la cantidad de peliculas producidas en el mismo.
     Ejemplo de retorno: Se produjeron X películas en el país X
 
     '''
-    # Elimino las filas con valores nulos en la columna 'production_countries'
-    df = df.dropna(subset=['production_countries'])
-
-    # Filtro las películas producidas en el país especificado
-    peliculas_pais_df = df[df['production_countries'].str.contains(pais)]
-
-    if peliculas_pais_df.empty:
-        return {'mensaje': f'No se encontraron películas producidas en el país "{pais}" en la base de datos.'}
-
-    # Calculo la cantidad de películas producidas en el país
-    cantidad_peliculas = len(peliculas_pais_df)
-
+    cantidad_peliculas = df[df['production_countries'] == pais]['cantidad_peliculas'].sum()
     return {
         'mensaje': f'Se produjeron {cantidad_peliculas} películas en el país "{pais}".'
     }
