@@ -29,7 +29,7 @@ def peliculas_duracion(titulo_de_la_filmacion: str):
     Ejemplo de retorno: X. Duración: X minutos. Año: XXXX.
     '''
     # Espacios en blanco
-    titulo_de_la_filmacion = titulo_de_la_filmacion.replace("%20", " ")
+    #titulo_de_la_filmacion = titulo_de_la_filmacion.replace("%20", " ")
     
     df_filtro = df[df['title'] == titulo_de_la_filmacion]
 
