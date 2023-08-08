@@ -74,6 +74,9 @@ def peliculas_pais(pais: str):
     Ejemplo de retorno: Se produjeron X películas en el país X
 
     '''
+    # Elimino las filas con valores nulos en la columna 'production_countries'
+    df = df.dropna(subset=['production_countries'])
+
     # Filtro las películas producidas en el país especificado
     peliculas_pais_df = df[df['production_countries'].str.contains(pais)]
 
@@ -270,3 +273,4 @@ def recomendacion(titulo:str):
 
     # Retorna la lista de los 5 títulos más populares dentro del cluster (excluyendo la película de referencia)
     return recommended_movies
+
