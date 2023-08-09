@@ -23,7 +23,7 @@ def peliculas_idioma(idioma: str):
 
 @app.get('/peliculas_duracion/{titulo_de_la_filmacion}')
 def peliculas_duracion(titulo_de_la_filmacion: str):
-    df = pd.read_parquet(dir_actual + 'df_movies_final')
+    df = pd.read_parquet(dir_actual + 'df_duracion')
     '''
     Se ingresa una película. Debe devolver la duración y el año.
     Ejemplo de retorno: X. Duración: X minutos. Año: XXXX.
