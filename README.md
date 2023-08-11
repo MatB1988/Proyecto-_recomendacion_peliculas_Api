@@ -80,6 +80,21 @@ La API se implementó en ***'render.com'*** utilizando la biblioteca ***'FASTAPI
 
 Las funcionalidades generadas fueron las siguientes:
 
++ def **peliculas_idioma( *`Idioma`* )**: 
+  Se ingresa un idioma, debe devolver la cantidad de películas producidas en ese idioma. Para esta funcion se saco las abrebiaturas y se coloco el idioma entero, se deja la siguiente lista de referencia de idiomas
+   
+   *`idiomas_completos`* = ['Abkhazian', 'Afrikaans', 'Amharic', 'Arabic', 'Aymara', 'Bulgarian', 'Bambara', 'Bengali', 'Tibetan', 'Bosnian', 'Catalan', 'Chinese', 'Czech', 'Welsh', 'Danish', 'German', 'Greek', 'English', 'Esperanto', 'Spanish', 'Estonian', 'Basque', 'Persian', 'Finnish', 'French', 'Frisian', 'Galician', 'Hebrew', 'Hindi', 'Croatian', 'Hungarian', 'Armenian', 'Indonesian', 'Icelandic', 'Italian', 'Inuktitut', 'Japanese', 'Javanese', 'Georgian', 'Kazakh', 'Kannada', 'Korean', 'Kurdish', 'Kyrgyz', 'Latin', 'Luxembourgish', 'Lao', 'Lithuanian', 'Latvian', 'Macedonian', 'Malayalam', 'Mongolian', 'Marathi', 'Malay', 'Maltese', 'Norwegian Bokmål', 'Nepali', 'Dutch', 'Norwegian', 'Punjabi', 'Polish', 'Pashto', 'Portuguese', 'Quechua', 'Romanian', 'Russian', 'Kinyarwanda', 'Serbo-Croatian', 'Sinhala', 'Slovak', 'Slovenian', 'Samoan', 'Albanian', 'Serbian', 'Swedish', 'Tamil', 'Telugu', 'Tajik', 'Thai', 'Tagalog', 'Turkish', 'Ukrainian', 'Urdu', 'Uzbek', 'Vietnamese', 'Wolof', 'Unknown', 'Chinese', 'Zulu']
+
+  
++ def **peliculas_duracion( *`Pelicula`* )** : 
+  Se ingresa una pelicula. Debe devolver la duracion y el año.
+
++ def **franquicia( *`Franquicia`* )**: 
+  Se ingresa la franquicia, retornando la cantidad de peliculas, ganancia total y promedio
+
++ def **peliculas_pais( *`Pais`* )**: 
+  Se ingresa un país, retornando la cantidad de peliculas producidas en el mismo.
+
 + def **cantidad_filmaciones_mes( *`Mes`* )**:
     Se ingresa un mes en idioma Español. Debe devolver la cantidad de películas que fueron estrenadas en el mes consultado en la totalidad del dataset.
 
